@@ -2,6 +2,7 @@ import { PlaceHolder } from '.';
 import { styled } from 'styled-components';
 
 import useInput from '@/hook/useInput';
+import ResetButton from './ResetButton';
 
 const Search = () => {
   const { value, onChange, reset } = useInput('');
@@ -9,7 +10,7 @@ const Search = () => {
   return (
     <Box>
       <input type="text" value={value} onChange={onChange} />
-      {value && <button onClick={reset}></button>}
+      {value && <ResetButton reset={reset} />}
       {!value && <PlaceHolder />}
     </Box>
   );
@@ -23,10 +24,10 @@ const Box = styled.div`
   border: 0;
   background-color: #fff;
   input {
+    width: 430px;
     background-color: transparent;
     border: 0;
     z-index: 1;
-    width: 430px;
     padding: 20px 10px 20px 24px;
     border-radius: 42px;
     &:focus {
