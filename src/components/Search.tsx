@@ -1,16 +1,30 @@
-import { PlaceHolder, ResetButton, SearchButton } from '.';
+import { PlaceHolder, Recommend, ResetButton, SearchButton } from '.';
+import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 
+import { search } from '@/api/sick';
 import useInput from '@/hook/useInput';
 
 const Search = () => {
   const { value, onChange, reset } = useInput('');
+  const [isFocus, setIsFocus] = useState<boolean>(false);
 
+  const focusHandler = () => {
+    setIsFocus(true);
+  };
+  const searchKeyword = async (value: string) => {
+    const res = await search(value);
+    console.log(res);
+  };
+  useEffect(() => {
+    searchKeyword(value);
+  }, [value]);
   return (
     <Box>
-      <input type="text" value={value} onChange={onChange} />
+      <input onFocus={focusHandler} type="text" value={value} onChange={onChange} />
       {value && <ResetButton reset={reset} />}
       {!value && <PlaceHolder />}
+      {isFocus && <Recommend />}
       <SearchButton />
     </Box>
   );
