@@ -18,6 +18,8 @@ const ResetButton = ({ reset }: ResetButtonProps) => {
 };
 
 const Button = styled.button`
+  position: absolute;
+  right: 66px;
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -25,6 +27,7 @@ const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2;
   background-color: #a8afb6;
 `;
 export default ResetButton;
