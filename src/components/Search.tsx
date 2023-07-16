@@ -4,11 +4,13 @@ import { styled } from 'styled-components';
 import useInput from '@/hook/useInput';
 
 const Search = () => {
-  const value = useInput('');
+  const { value, onChange, reset } = useInput('');
+
   return (
     <Box>
-      <input type="text" {...value} />
-      <PlaceHolder />
+      <input type="text" value={value} onChange={onChange} />
+      {value && <button onClick={reset}></button>}
+      {!value && <PlaceHolder />}
     </Box>
   );
 };
@@ -16,7 +18,7 @@ const Search = () => {
 const Box = styled.div`
   position: relative;
   display: flex;
-  margin-top: 40px;
+  margin: 40px 0 100px;
   border-radius: 42px;
   border: 0;
   background-color: #fff;
