@@ -13,8 +13,15 @@ const Recommend = ({ value }: RecommendProps) => {
   const searchKeyword = useCallback(async (value: string) => {
     if (value) {
       const res = await search(value);
-      const data = res.data.map((current: sickDTO) => current.sickNm);
-      const arr = [...data].slice(0, 8);
+      const data = res.data
+        .map((item: sickDTO) => {
+          if (item.sickNm.indexOf(value) === 0) {
+            return item.sickNm;
+          }
+        })
+        .filter((item: string | undefined) => item);
+      console.log(data);
+      const arr = [...data];
       setResult(arr);
     }
   }, []);
@@ -38,7 +45,7 @@ const Recommend = ({ value }: RecommendProps) => {
           {result_list}
         </>
       ) : (
-        <span>검색어 없음</span>
+        <Empty>검색어가 존재하지 않습니다.</Empty>
       )}
     </Box>
   );
@@ -57,5 +64,9 @@ const Box = styled.div`
     padding: 10px 20px;
     color: #888;
   }
+`;
+const Empty = styled.div`
+  padding: 0 30px;
+  color: #888;
 `;
 export default Recommend;

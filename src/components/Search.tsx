@@ -31,7 +31,7 @@ const Box = styled.div`
   display: flex;
   width: 490px;
   align-items: center;
-  margin: 40px 0 100px;
+  margin: 40px 0 500px;
   border-radius: 42px;
   border: 2px solid #fff;
   background-color: #fff;
