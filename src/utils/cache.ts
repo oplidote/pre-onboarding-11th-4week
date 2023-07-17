@@ -1,3 +1,7 @@
+export interface cacheValue {
+  data: string[];
+  expire: number;
+}
 export class LocalCache<Key, Value> {
   private cache: Map<Key, Value>;
 

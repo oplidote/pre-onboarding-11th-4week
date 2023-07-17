@@ -1,25 +1,31 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { search } from '@/api/sick';
-import { LocalCache } from '@/utils/cache';
+import { cacheValue, LocalCache } from '@/utils/cache';
 import { wrapPromise } from '@/utils/wrapPromise';
 
 const cache = new LocalCache();
 
-const useFetch = (value: string) => {
+const useFetch = (key: string) => {
   const [result, setResult] = useState<string[]>([]);
 
+  const fetchData = useCallback(() => {
+    const now = new Date();
+    const response = search(key);
+    setResult(wrapPromise(response));
+    cache.set(key, { data: wrapPromise(response), expire: now.getTime() });
+  }, [key]);
+
   useEffect(() => {
-    if (value) {
-      if (cache.has(value)) {
-        setResult(cache.get(value) as string[]);
-      } else {
-        const data = search(value);
-        setResult(wrapPromise(data));
-        cache.set(value, wrapPromise(data));
-      }
+    if (key) {
+      if (cache.has(key)) {
+        const now = new Date();
+        const cacheObj = cache.get(key) as cacheValue;
+        if (now.getTime() - cacheObj.expire > 10000) fetchData();
+        else setResult(cacheObj.data);
+      } else fetchData();
     }
-  }, [value]);
+  }, [fetchData, key]);
 
   return result;
 };
