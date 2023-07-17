@@ -2,6 +2,7 @@ import { client } from '.';
 
 export const search = async (keyword: string) => {
   const res = await client.get(`/sick?q=${keyword}`);
+  console.info('calling api');
   const data = res.data
     .map((item: sickDTO) => {
       if (item.sickNm.indexOf(keyword) === 0) {
