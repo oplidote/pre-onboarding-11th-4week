@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { search } from '@/api/sick';
 import { cacheValue, LocalCache } from '@/utils/cache';
 import { wrapPromise } from '@/utils/wrapPromise';
+import useDebounce from './useDebounce';
 
 const cache = new LocalCache();
 
@@ -16,16 +17,18 @@ const useFetch = (key: string) => {
     cache.set(key, { data: wrapPromise(response), expire: now.getTime() });
   }, [key]);
 
+  const delayFetch = useDebounce(fetchData, 500);
+
   useEffect(() => {
     if (key) {
       if (cache.has(key)) {
         const now = new Date();
         const cacheObj = cache.get(key) as cacheValue;
-        if (now.getTime() - cacheObj.expire > 10000) fetchData();
+        if (now.getTime() - cacheObj.expire > 10000) delayFetch();
         else setResult(cacheObj.data);
-      } else fetchData();
+      } else delayFetch();
     }
-  }, [fetchData, key]);
+  }, [delayFetch, fetchData, key]);
 
   return result;
 };
