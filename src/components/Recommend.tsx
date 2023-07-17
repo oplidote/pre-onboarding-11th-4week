@@ -1,40 +1,20 @@
 import { TextItem } from '.';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { styled } from 'styled-components';
 
-import { search } from '@/api/sick';
+import useFetch from '@/hook/useFetch';
 
 type RecommendProps = {
   value: string;
 };
 const Recommend = ({ value }: RecommendProps) => {
-  const [result, setResult] = useState<string[]>([]);
-
-  const searchKeyword = useCallback(async (value: string) => {
-    if (value) {
-      const res = await search(value);
-      const data = res.data
-        .map((item: sickDTO) => {
-          if (item.sickNm.indexOf(value) === 0) {
-            return item.sickNm;
-          }
-        })
-        .filter((item: string | undefined) => item);
-      console.log(data);
-      const arr = [...data];
-      setResult(arr);
-    }
-  }, []);
+  const result = useFetch(value);
 
   const result_list = useMemo(() => {
     return result.map((item) => {
       return <TextItem>{item}</TextItem>;
     });
   }, [result]);
-
-  useEffect(() => {
-    searchKeyword(value);
-  }, [searchKeyword, value]);
 
   return (
     <Box>
