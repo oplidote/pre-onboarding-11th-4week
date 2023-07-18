@@ -1,26 +1,43 @@
 import { PlaceHolder, Recommend, ResetButton, SearchButton } from '.';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { styled } from 'styled-components';
 
+import useFetch from '@/hook/useFetch';
 import useInput from '@/hook/useInput';
+import useKeydown from '@/utils/useKeydown';
 
 const Search = () => {
   const { value, onChange, reset } = useInput('');
-  const [isFocus, setIsFocus] = useState<boolean>(false);
-
-  const onFocus = () => {
-    setIsFocus(true);
+  const data = useFetch(value);
+  const [isAutoSearch, setIsAutoSearch] = useState<boolean>(false);
+  const { focus, keydownHandler } = useKeydown(data.length, value);
+  const onAutoSearch = () => {
+    setIsAutoSearch(true);
   };
 
-  const onBlur = () => {
-    setIsFocus(false);
+  const offAutoSearch = () => {
+    setIsAutoSearch(false);
   };
+
+  const changeHandler = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      onChange(event);
+    },
+    [onChange],
+  );
   return (
     <Box>
-      <input onBlur={onBlur} onFocus={onFocus} type="text" value={value} onChange={onChange} />
+      <input
+        onBlur={offAutoSearch}
+        onFocus={onAutoSearch}
+        type="text"
+        value={value}
+        onChange={changeHandler}
+        onKeyDown={keydownHandler}
+      />
       {value && <ResetButton reset={reset} />}
       {!value && <PlaceHolder />}
-      {isFocus && <Recommend value={value} />}
+      {isAutoSearch && <Recommend value={value} focus={focus} data={data} />}
       <SearchButton />
     </Box>
   );

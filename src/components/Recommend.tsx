@@ -1,28 +1,25 @@
 import { TextItem } from '.';
-import { useMemo } from 'react';
 import { styled } from 'styled-components';
-
-import useFetch from '@/hook/useFetch';
 
 type RecommendProps = {
   value: string;
+  focus: number;
+  data: string[];
 };
-const Recommend = ({ value }: RecommendProps) => {
-  const result = useFetch(value);
-
-  const result_list = useMemo(() => {
-    return result.map((item) => {
-      return <TextItem>{item}</TextItem>;
-    });
-  }, [result]);
-
+const Recommend = ({ value, focus, data }: RecommendProps) => {
   return (
     <Box>
       {value ? (
         <>
           <TextItem>{value}</TextItem>
           <span className="title">추천 검색어</span>
-          {result_list}
+          {data.map((item, index) => {
+            return (
+              <TextItem isFocus={focus == index} key={index}>
+                {item}
+              </TextItem>
+            );
+          })}
         </>
       ) : (
         <Empty>검색어가 존재하지 않습니다.</Empty>

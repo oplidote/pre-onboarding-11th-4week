@@ -11,5 +11,5 @@ export const search = async (keyword: string) => {
     })
     .filter((item: string | undefined) => item)
     .slice(0, 8);
-  return data;
+  return await data;
 };
