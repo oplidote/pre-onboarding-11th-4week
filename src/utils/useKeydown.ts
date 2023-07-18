@@ -6,8 +6,7 @@ const useKeydown = (len: number, value: string) => {
   useEffect(() => {
     setFocus(-1);
   }, [value]);
-  console.log(focus);
-  console.log(len);
+
   const keydownHandler = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.nativeEvent.isComposing) return;
@@ -20,8 +19,6 @@ const useKeydown = (len: number, value: string) => {
           case 'ArrowUp':
             if (0 >= focus) setFocus(len - 1);
             else setFocus(focus - 1);
-            break;
-          case 'Escape':
             break;
           default:
             break;
