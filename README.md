@@ -6,10 +6,7 @@ npm install
 npm run start
 ```
 # 미리 보기
-<img width="80%" src="https://github.com/oplidote/pre-onboarding-11th-4week/assets/69412482/a8981d84-7af2-4a8b-baf0-6611d0908a6f"/>
-
-
-
+<img width="80%" src="https://github.com/oplidote/pre-onboarding-11th-4week/assets/69412482/4c8f4c72-3a50-41d8-8b09-d9e99325fa48"/>
 
 
 # 로컬 캐싱 관련
