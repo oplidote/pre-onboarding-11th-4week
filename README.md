@@ -6,7 +6,7 @@ npm install
 npm run start
 ```
 # 미리 보기
-<img width="80%" src="https://github.com/oplidote/pre-onboarding-11th-4week/assets/69412482/88a629ba-9520-415f-9efc-18323c51b42e"/>
+<img width="80%" src="https://github.com/oplidote/pre-onboarding-11th-4week/assets/69412482/b00dd9f0-b4e5-4227-8ac0-ea05d028debe"/>
 
 # 로컬 캐싱 관련
 - class를 생성하여 cache 관련 메서드를 모듈화하였습니다.
