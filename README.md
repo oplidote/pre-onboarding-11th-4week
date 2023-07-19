@@ -1,3 +1,13 @@
+# 실행 방법
+```
+npm install
+```
+```
+npm run start
+```
+# 미리 보기
+<img src="https://github.com/oplidote/pre-onboarding-11th-4week/assets/69412482/f93c6506-e278-4b12-a870-1678752c6bd5" alt="미리보기">
+
 # 로컬 캐싱 관련
 - class를 생성하여 cache 관련 메서드를 모듈화하였습니다.
 - Map 자료구조(key, value)를 기반으로하는 cache table 을 생성하였습니다.
@@ -19,3 +29,5 @@
 
 # 키보드 검색어 이동 기능
 - 위, 아래 방향키를 통해 추천 검색어 목록에 포커스할 수 있습니다.
+
+- 
